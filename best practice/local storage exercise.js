@@ -6,7 +6,7 @@ const username = localStorage.getItem("username");
 console.log(username);
 
 if (localStorage.getItem("username") !==null) {
-    console.log("User exits")
+    console.log("User exists")
 }
 
 localStorage.removeItem("username");

@@ -1,6 +1,8 @@
 // ---------- Storage helpers (from Task 13.1) ----------
 
 const STORAGE_KEY = "cart";   // different from the to-do key "todos"
+const MAX_UNDO_STEPS = 20;
+const PRICE_LOCALE = "en-KE";
 
 function saveToStorage(key, data) {
   try {
@@ -44,7 +46,7 @@ function loadCart() {
       item &&
       Number.isInteger(item.quantity) &&
       item.quantity > 0 &&
-      state.products.some(p => p.id === item.productId)
+      state.products.some(product => product.id === item.productId)
   );
 }
 
@@ -54,8 +56,7 @@ state.cart = loadCart();
 
 function commitCart(newCart) {
   history.push(state.cart);
-  if (history.length > 20) history.shift();   // keep the last 20 changes
-
+if (history.length > MAX_UNDO_STEPS) history.shift();
   state.cart = newCart;
   saveToStorage(STORAGE_KEY, state.cart);
   render();
@@ -106,8 +107,7 @@ function undo() {
 // ---------- Calculated values (never stored) ----------
 
 function getProduct(productId) {
-  return state.products.find(p => p.id === productId);
-}
+return state.products.find(product => product.id === productId);}
 
 function getCartTotal() {
   return state.cart.reduce((total, item) => {
@@ -121,8 +121,7 @@ function getCartCount() {
 }
 
 function formatPrice(amount) {
-  return "KSh " + amount.toLocaleString("en-KE");
-}
+return "KSh " + amount.toLocaleString(PRICE_LOCALE);}
 
 // ---------- Drawing the page ----------
 
@@ -238,8 +237,8 @@ cartList.addEventListener("click", event => {
   if (!button) return;
 
   const productId = Number(button.dataset.productId);
-  const item = state.cart.find(i => i.productId === productId);
-  if (!item) return;
+  const item = state.cart.find(cartItem => cartItem.productId === productId);
+    if (!item) return;
 
   if (button.dataset.action === "increase") updateQuantity(productId, item.quantity + 1);
   if (button.dataset.action === "decrease") updateQuantity(productId, item.quantity - 1);

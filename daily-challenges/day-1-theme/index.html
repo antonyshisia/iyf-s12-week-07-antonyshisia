@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Day 1: Theme Persistence</title>
+        <style>
+            :root {
+                --background: #f8fafc;
+                --text: #1f2937;
+            }
+            :root[data-theme="dark"] {
+                --background: #111827;
+                --text: #f9fafb;
+            }
+            body {
+                margin: 0;
+                padding: 24px;
+                font-family: Arial, sans-serif;
+                color: var(--text);
+                background: var(--background);
+            }
+        </style>
+        <script type="module" src="theme.js"></script>
+    </head>
+    <body>
+        <h1>Theme Persistence</h1>
+        <button type="button" id="theme-toggle" aria-pressed="false">Switch to dark mode</button>
+    </body>
+</html>

@@ -1,8 +1,14 @@
-import { getFromStorage, saveToStorage } from "./storage.js";
+import {
+  store,
+  addTodo,
+  toggleTodo,
+  deleteTodo,
+  updateTodoText,
+  clearCompletedTodos,
+  setFilter,
+} from "./state.js";
 
-const STORAGE_KEY = "todos";
-const FILTER_KEY = "filter";
-const VALID_FILTERS = ["all", "active", "completed"];
+// ---------- DOM references ----------
 
 const form = document.getElementById("task-form");
 const input = document.getElementById("task-input");
@@ -11,76 +17,11 @@ const itemsLeft = document.getElementById("items-left");
 const clearCompleted = document.getElementById("clear-completed");
 const filterButtons = document.querySelectorAll(".filter");
 
-// ---------- 1. Load ONCE, when the app starts ----------
-
-function loadTodos() {
-  const saved = getFromStorage(STORAGE_KEY, []);
-  if (!Array.isArray(saved)) return [];
-
-  // Keep only well-formed items, in case the saved data is damaged.
-  return saved.filter(
-    (todo) =>
-      todo &&
-      typeof todo.id === "number" &&
-      typeof todo.text === "string" &&
-      typeof todo.completed === "boolean"
-  );
-}
-
-function loadFilter() {
-  const saved = getFromStorage(FILTER_KEY, "all");
-  return VALID_FILTERS.includes(saved) ? saved : "all";
-}
-
-let todos = loadTodos();
-let currentFilter = loadFilter();
-
-// ---------- 2. One place that saves and redraws ----------
-
-function commit() {
-  saveToStorage(STORAGE_KEY, todos);
-  saveToStorage(FILTER_KEY, currentFilter);
-  render();
-}
-
-// ---------- 3. Every action: change the array, then commit() ----------
-
-function addTodo(text) {
-  todos = [
-    ...todos,
-    { id: Date.now(), text, completed: false, createdAt: new Date().toISOString() },
-  ];
-  commit();
-}
-
-function toggleTodo(id) {
-  todos = todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t));
-  commit();
-}
-
-function deleteTodo(id) {
-  todos = todos.filter((t) => t.id !== id);
-  commit();
-}
-
-function updateTodoText(id, text) {
-  todos = todos.map((t) => (t.id === id ? { ...t, text } : t));
-  commit();
-}
-
-function clearCompletedTodos() {
-  todos = todos.filter((t) => !t.completed);
-  commit();
-}
-
-function setFilter(filter) {
-  currentFilter = filter;
-  commit();
-}
-
 // ---------- Drawing the page ----------
 
 function render() {
+  const { todos, filter: currentFilter } = store.getState();
+
   taskList.replaceChildren();
 
   const visibleTodos = todos.filter((todo) => {
@@ -117,7 +58,6 @@ function render() {
     taskList.appendChild(li);
   });
 
-  // Show the saved filter as the highlighted button.
   filterButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.filter === currentFilter);
   });
@@ -148,7 +88,6 @@ form.addEventListener("submit", function (event) {
   input.focus();
 });
 
-// One delegated click listener handles toggling and deleting.
 taskList.addEventListener("click", function (event) {
   const id = getTodoId(event.target);
   if (id === null) return;
@@ -173,7 +112,7 @@ taskList.addEventListener("dblclick", function (event) {
   if (!text) return;
 
   const id = getTodoId(text);
-  const todo = todos.find((t) => t.id === id);
+  const todo = store.getState().todos.find((t) => t.id === id);
   const li = text.closest(".task-item");
   if (todo && li) editTodo(todo, li);
 });
@@ -216,4 +155,7 @@ filterButtons.forEach(function (button) {
 
 clearCompleted.addEventListener("click", clearCompletedTodos);
 
-render();
+// ---------- Start the app ----------
+
+store.subscribe(render); // redraw on every change
+render();                // first draw, because subscribe doesn't call it right away

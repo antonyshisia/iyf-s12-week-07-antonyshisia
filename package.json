@@ -1,0 +1,33 @@
+{
+  "name": "iyf-s12-week-07-antonyshisia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,html,css}\"",
+    "test": "vitest run"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonyshisia/iyf-s12-week-07-antonyshisia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/antonyshisia/iyf-s12-week-07-antonyshisia/issues"
+  },
+  "homepage": "https://github.com/antonyshisia/iyf-s12-week-07-antonyshisia#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1"
+  }
+}

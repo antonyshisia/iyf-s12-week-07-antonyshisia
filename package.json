@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,html,css}\"",
     "test": "vitest run"
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/antonyshisia/iyf-s12-week-07-antonyshisia.git"
@@ -28,6 +28,7 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.14.0",
     "globals": "^17.14.0",
-    "prettier": "^3.10.1"
+    "prettier": "^3.10.1",
+    "vitest": "^5.1.0"
   }
 }

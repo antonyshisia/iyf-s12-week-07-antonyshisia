@@ -14,7 +14,9 @@ function saveToStorage(key, data) {
 
 function getFromStorage(key, defaultValue = null) {
     const data = localStorage.getItem(key);
-    if (data === null) return defaultValue;
+    if (data === null) {
+        return defaultValue;
+    }
     try {
         return JSON.parse(data);
     } catch (error) {
@@ -34,11 +36,13 @@ const state = {
     cart: [], // { productId, quantity }: only the cart is saved
 };
 
-let history = []; // earlier copies of the cart, for Undo
+const history = []; // earlier copies of the cart, for Undo
 
 function loadCart() {
     const saved = getFromStorage(STORAGE_KEY, []);
-    if (!Array.isArray(saved)) return [];
+    if (!Array.isArray(saved)) {
+        return [];
+    }
 
     // Keep only valid items for products that still exist.
     return saved.filter(
@@ -56,7 +60,9 @@ state.cart = loadCart();
 
 function commitCart(newCart) {
     history.push(state.cart);
-    if (history.length > MAX_UNDO_STEPS) history.shift();
+    if (history.length > MAX_UNDO_STEPS) {
+        history.shift();
+    }
     state.cart = newCart;
     saveToStorage(STORAGE_KEY, state.cart);
     render();
@@ -93,12 +99,16 @@ function removeFromCart(productId) {
 }
 
 function clearCart() {
-    if (state.cart.length === 0) return;
+    if (state.cart.length === 0) {
+        return;
+    }
     commitCart([]);
 }
 
 function undo() {
-    if (history.length === 0) return;
+    if (history.length === 0) {
+        return;
+    }
     state.cart = history.pop();
     saveToStorage(STORAGE_KEY, state.cart);
     render();
@@ -172,7 +182,9 @@ function renderCart() {
 
     state.cart.forEach((item) => {
         const product = getProduct(item.productId);
-        if (!product) return;
+        if (!product) {
+            return;
+        }
 
         const li = document.createElement("li");
 
@@ -230,21 +242,33 @@ function render() {
 
 productList.addEventListener("click", (event) => {
     const button = event.target.closest('[data-action="add"]');
-    if (!button) return;
+    if (!button) {
+        return;
+    }
     addToCart(Number(button.dataset.productId));
 });
 
 cartList.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-action]");
-    if (!button) return;
+    if (!button) {
+        return;
+    }
 
     const productId = Number(button.dataset.productId);
     const item = state.cart.find((cartItem) => cartItem.productId === productId);
-    if (!item) return;
+    if (!item) {
+        return;
+    }
 
-    if (button.dataset.action === "increase") updateQuantity(productId, item.quantity + 1);
-    if (button.dataset.action === "decrease") updateQuantity(productId, item.quantity - 1);
-    if (button.dataset.action === "remove") removeFromCart(productId);
+    if (button.dataset.action === "increase") {
+        updateQuantity(productId, item.quantity + 1);
+    }
+    if (button.dataset.action === "decrease") {
+        updateQuantity(productId, item.quantity - 1);
+    }
+    if (button.dataset.action === "remove") {
+        removeFromCart(productId);
+    }
 });
 
 clearButton.addEventListener("click", clearCart);

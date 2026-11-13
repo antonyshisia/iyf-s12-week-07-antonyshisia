@@ -29,7 +29,9 @@ export function render({ todos, filter }) {
             "aria-label",
             `${todo.text}, ${todo.completed ? "completed" : "active"}. Press Enter or Space to toggle.`
         );
-        if (todo.completed) taskText.classList.add("completed");
+        if (todo.completed) {
+            taskText.classList.add("completed");
+        }
 
         const deleteButton = document.createElement("button");
         deleteButton.type = "button";
@@ -69,15 +71,24 @@ export function startEditing(li, todo, { onSave, onCancel }) {
 
     let finished = false;
     function finish(save) {
-        if (finished) return;
+        if (finished) {
+            return;
+        }
         finished = true;
-        if (save) onSave(editInput.value);
-        else onCancel();
+        if (save) {
+            onSave(editInput.value);
+        } else {
+            onCancel();
+        }
     }
 
     editInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") finish(true);
-        if (event.key === "Escape") finish(false);
+        if (event.key === "Enter") {
+            finish(true);
+        }
+        if (event.key === "Escape") {
+            finish(false);
+        }
     });
     editInput.addEventListener("blur", () => finish(true));
 }

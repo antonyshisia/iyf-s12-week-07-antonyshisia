@@ -20,7 +20,9 @@ function createStore(initialState) {
             listeners.push(listener);
             return () => {
                 const index = listeners.indexOf(listener);
-                if (index !== -1) listeners.splice(index, 1);
+                if (index !== -1) {
+                    listeners.splice(index, 1);
+                }
             };
         },
     };
@@ -28,7 +30,9 @@ function createStore(initialState) {
 
 function loadTodos() {
     const saved = getFromStorage(STORAGE_KEY, []);
-    if (!Array.isArray(saved)) return [];
+    if (!Array.isArray(saved)) {
+        return [];
+    }
     return saved.filter(
         (t) =>
             t &&
@@ -85,5 +89,7 @@ export function clearCompletedTodos() {
 }
 
 export function setFilter(filter) {
-    if (VALID_FILTERS.includes(filter)) store.setState({ filter });
+    if (VALID_FILTERS.includes(filter)) {
+        store.setState({ filter });
+    }
 }

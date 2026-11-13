@@ -20,7 +20,9 @@ function createStore(initialState) {
             listeners.push(listener);
             return () => {
                 const index = listeners.indexOf(listener);
-                if (index !== -1) listeners.splice(index, 1);
+                if (index !== -1) {
+                    listeners.splice(index, 1);
+                }
             };
         },
     };
@@ -42,7 +44,9 @@ store.subscribe((state) => {
 function updateTodos(change) {
     const { todos } = store.getState();
     const next = change(todos);
-    if (next !== todos) store.setState({ todos: next });
+    if (next !== todos) {
+        store.setState({ todos: next });
+    }
 }
 
 // ---------- Actions ----------

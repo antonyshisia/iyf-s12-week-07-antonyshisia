@@ -20,7 +20,9 @@ form.addEventListener("submit", (event) => {
 
 taskList.addEventListener("click", (event) => {
     const id = getTodoId(event.target);
-    if (id === null) return;
+    if (id === null) {
+        return;
+    }
 
     if (event.target.closest('[data-action="delete"]')) {
         deleteTodo(id);
@@ -33,18 +35,24 @@ taskList.addEventListener("keydown", (event) => {
     if ((event.key === "Enter" || event.key === " ") && event.target.matches(".task-text")) {
         event.preventDefault();
         const id = getTodoId(event.target);
-        if (id !== null) toggleTodo(id);
+        if (id !== null) {
+            toggleTodo(id);
+        }
     }
 });
 
 taskList.addEventListener("dblclick", (event) => {
     const text = event.target.closest(".task-text");
-    if (!text) return;
+    if (!text) {
+        return;
+    }
 
     const id = getTodoId(text);
     const todo = store.getState().todos.find((t) => t.id === id);
     const li = text.closest(".task-item");
-    if (!todo || !li) return;
+    if (!todo || !li) {
+        return;
+    }
 
     startEditing(li, todo, {
         onSave: (newText) => updateTodoText(id, newText),

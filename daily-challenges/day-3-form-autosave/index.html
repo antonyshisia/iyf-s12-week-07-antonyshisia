@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Day 3: Form Auto-Save</title>
+        <script type="module" src="autosave.js"></script>
+    </head>
+    <body>
+        <h1>Contact form (auto-saves every 5 seconds)</h1>
+        <form id="contact-form">
+            <p>
+                <label for="name">Name</label><br />
+                <input id="name" name="name" type="text" />
+            </p>
+            <p>
+                <label for="email">Email</label><br />
+                <input id="email" name="email" type="email" />
+            </p>
+            <p>
+                <label for="message">Message</label><br />
+                <textarea id="message" name="message" rows="5"></textarea>
+            </p>
+            <button type="submit">Send</button>
+        </form>
+        <p id="status-message" aria-live="polite"></p>
+    </body>
+</html>

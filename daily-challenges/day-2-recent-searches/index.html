@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Day 2: Recent Searches</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 24px;
+            }
+            .search-box {
+                position: relative;
+                display: inline-block;
+                width: 280px;
+            }
+            #search-input {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+            }
+            #history-list {
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                background: white;
+                border: 1px solid #cbd5e1;
+                border-top: none;
+            }
+            #history-list[hidden] {
+                display: none;
+            }
+            #history-list button {
+                width: 100%;
+                padding: 8px 10px;
+                text-align: left;
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 15px;
+            }
+            #history-list button:hover {
+                background: #eff6ff;
+            }
+        </style>
+        <script type="module" src="search.js"></script>
+    </head>
+    <body>
+        <h1>Recent Searches</h1>
+        <form id="search-form" autocomplete="off">
+            <label for="search-input">Search</label><br />
+            <div class="search-box">
+                <input id="search-input" type="text" placeholder="Try: nairobi" />
+                <ul id="history-list" aria-label="Recent searches" hidden></ul>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+        <p id="result" aria-live="polite"></p>
+    </body>
+</html>

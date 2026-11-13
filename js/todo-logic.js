@@ -1,17 +1,14 @@
 // PURE functions: no document, no localStorage, no changing the arrays passed in.
 
-export const FILTERS = ["all", "active", "completed"];
-
-export function isValidTodo(todo) {
-  return (
-    todo !== null &&
-    typeof todo === "object" &&
-    typeof todo.id === "number" &&
-    typeof todo.text === "string" &&
-    typeof todo.completed === "boolean"
-  );
+export function normalizeFilter(value) {
+  return FILTERS.includes(value) ? value : FILTER.ALL;
 }
 
+export function filterTodos(todos, filter) {
+  if (filter === FILTER.ACTIVE) return todos.filter((todo) => !todo.completed);
+  if (filter === FILTER.COMPLETED) return todos.filter((todo) => todo.completed);
+  return todos;
+}
 // Turns whatever came out of storage into a safe array of todos.
 export function normalizeTodos(value) {
   return Array.isArray(value) ? value.filter(isValidTodo) : [];

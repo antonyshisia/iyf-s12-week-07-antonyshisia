@@ -18,14 +18,8 @@ export function normalizeTodos(value) {
     return Array.isArray(value) ? value.filter(isValidTodo) : [];
 }
 
-
 // id and createdAt can be passed in, which makes this easy to test.
-export function addTodo(
-    todos,
-    text,
-    id = Date.now(),
-    createdAt = new Date().toISOString()
-) {
+export function addTodo(todos, text, id = Date.now(), createdAt = new Date().toISOString()) {
     const cleanText = String(text).trim();
     if (cleanText === "") {
         return todos;

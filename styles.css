@@ -1,155 +1,154 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 24px;
-  font-family: Arial, sans-serif;
-  color: #1f2937;
-  background: #f8fafc;
+    margin: 0;
+    padding: 24px;
+    font-family: Arial, sans-serif;
+    color: #1f2937;
+    background: #f8fafc;
 }
 
 .todo-container {
-  max-width: 650px;
-  margin: 0 auto;
-  padding: 24px;
-  background: white;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 24px;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
 }
 
 h1 {
-  margin: 4px 0 20px;
-  font-size: 32px;
+    margin: 4px 0 20px;
+    font-size: 32px;
 }
 
 #task-form {
-  display: flex;
-  gap: 8px;
+    display: flex;
+    gap: 8px;
 }
 
 #task-input {
-  flex: 1;
-  min-width: 0;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
 }
 
 button {
-  padding: 10px 16px;
-  font-size: 15px;
-  cursor: pointer;
-  background: white;
-  border: 1px solid #cbd5e1;
-  border-radius: 9px;
+    padding: 10px 16px;
+    font-size: 15px;
+    cursor: pointer;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
 }
 
 #task-form button,
 .filter.active {
-  color: white;
-  background: #246bf0;
-  border-color: #246bf0;
+    color: white;
+    background: #246bf0;
+    border-color: #246bf0;
 }
 
 .filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 32px 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 32px 0 16px;
 }
 
 #task-list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 .task-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .task-text {
-  flex: 1;
-  overflow-wrap: anywhere;
-  cursor: pointer;
+    flex: 1;
+    overflow-wrap: anywhere;
+    cursor: pointer;
 }
 
 .task-text.completed {
-  color: #64748b;
-  text-decoration: line-through;
+    color: #64748b;
+    text-decoration: line-through;
 }
 
 .delete-task {
-  color: #dc2626;
-  font-size: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 120ms ease;
+    color: #dc2626;
+    font-size: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease;
 }
 
 .edit-input {
-  flex: 1;
-  min-width: 0;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #246bf0;
-  border-radius: 6px;
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #246bf0;
+    border-radius: 6px;
 }
 
 .task-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 16px;
-  color: #64748b;
-  font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+    color: #64748b;
+    font-size: 14px;
 }
 
 .help-text {
-  margin: 20px 0 0;
-  color: #64748b;
-  font-size: 13px;
-  line-height: 1.5;
+    margin: 20px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 button:focus-visible,
 input:focus-visible {
-  outline: 2px solid #246bf0;
-  outline-offset: 2px;
+    outline: 2px solid #246bf0;
+    outline-offset: 2px;
 }
 
 @media (max-width: 480px) {
-  body {
-    padding: 12px;
-  }
+    body {
+        padding: 12px;
+    }
 
-  .todo-container {
-    padding: 16px;
-  }
+    .todo-container {
+        padding: 16px;
+    }
 
-  h1 {
-    font-size: 27px;
-  }
+    h1 {
+        font-size: 27px;
+    }
 }
 .task-item:hover .delete-task,
 .task-item:focus-within .delete-task {
-  opacity: 1;
-  pointer-events: auto;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 @media (hover: none) {
-  .delete-task {
-    opacity: 1;
-    pointer-events: auto;
-  }
+    .delete-task {
+        opacity: 1;
+        pointer-events: auto;
+    }
 }
-

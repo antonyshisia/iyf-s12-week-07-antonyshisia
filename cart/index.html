@@ -1,66 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping Cart</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, sans-serif; color: #1f2937; background: #f8fafc; }
-    header { display: flex; justify-content: space-between; align-items: center;
-             padding: 16px 24px; background: #246bf0; color: white; }
-    header h1 { margin: 0; font-size: 22px; }
-    #cart-count { font-weight: bold; }
-    main { display: grid; gap: 24px; max-width: 900px; margin: 24px auto; padding: 0 16px;
-           grid-template-columns: 1fr 1fr; }
-    @media (max-width: 700px) { main { grid-template-columns: 1fr; } }
-    section { background: white; border: 1px solid #cbd5e1; border-radius: 8px; padding: 16px; }
-    h2 { margin-top: 0; }
-    ul { list-style: none; margin: 0; padding: 0; }
-    li { display: flex; align-items: center; justify-content: space-between; gap: 8px;
-         padding: 10px 0; border-bottom: 1px solid #e5e7eb; }
-    .image { font-size: 32px; }
-    .info { flex: 1; }
-    .price { color: #64748b; font-size: 14px; }
-    button { padding: 6px 12px; cursor: pointer; background: white;
-             border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; }
-    button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .primary { background: #246bf0; border-color: #246bf0; color: white; }
-    .danger { color: #dc2626; }
-    .quantity { display: inline-block; min-width: 24px; text-align: center; }
-    .cart-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
-    .actions { display: flex; gap: 8px; margin-top: 12px; }
-    #empty-message { color: #64748b; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Shopping Cart</h1>
-    <span>Cart items: <span id="cart-count" aria-live="polite">0</span></span>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shopping Cart</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                color: #1f2937;
+                background: #f8fafc;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px 24px;
+                background: #246bf0;
+                color: white;
+            }
+            header h1 {
+                margin: 0;
+                font-size: 22px;
+            }
+            #cart-count {
+                font-weight: bold;
+            }
+            main {
+                display: grid;
+                gap: 24px;
+                max-width: 900px;
+                margin: 24px auto;
+                padding: 0 16px;
+                grid-template-columns: 1fr 1fr;
+            }
+            @media (max-width: 700px) {
+                main {
+                    grid-template-columns: 1fr;
+                }
+            }
+            section {
+                background: white;
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                padding: 16px;
+            }
+            h2 {
+                margin-top: 0;
+            }
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                padding: 10px 0;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .image {
+                font-size: 32px;
+            }
+            .info {
+                flex: 1;
+            }
+            .price {
+                color: #64748b;
+                font-size: 14px;
+            }
+            button {
+                padding: 6px 12px;
+                cursor: pointer;
+                background: white;
+                border: 1px solid #cbd5e1;
+                border-radius: 6px;
+                font-size: 15px;
+            }
+            button:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+            .primary {
+                background: #246bf0;
+                border-color: #246bf0;
+                color: white;
+            }
+            .danger {
+                color: #dc2626;
+            }
+            .quantity {
+                display: inline-block;
+                min-width: 24px;
+                text-align: center;
+            }
+            .cart-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 16px;
+            }
+            .actions {
+                display: flex;
+                gap: 8px;
+                margin-top: 12px;
+            }
+            #empty-message {
+                color: #64748b;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Shopping Cart</h1>
+            <span>Cart items: <span id="cart-count" aria-live="polite">0</span></span>
+        </header>
 
-  <main>
-    <section aria-labelledby="products-heading">
-      <h2 id="products-heading">Products</h2>
-      <ul id="product-list"></ul>
-    </section>
+        <main>
+            <section aria-labelledby="products-heading">
+                <h2 id="products-heading">Products</h2>
+                <ul id="product-list"></ul>
+            </section>
 
-    <section aria-labelledby="cart-heading">
-      <h2 id="cart-heading">Your cart</h2>
-      <p id="empty-message">Your cart is empty.</p>
-      <ul id="cart-list"></ul>
+            <section aria-labelledby="cart-heading">
+                <h2 id="cart-heading">Your cart</h2>
+                <p id="empty-message">Your cart is empty.</p>
+                <ul id="cart-list"></ul>
 
-      <div class="cart-footer">
-        <strong>Total: <span id="cart-total">KSh 0</span></strong>
-      </div>
+                <div class="cart-footer">
+                    <strong>Total: <span id="cart-total">KSh 0</span></strong>
+                </div>
 
-      <div class="actions">
-        <button type="button" id="undo-button">Undo</button>
-        <button type="button" id="clear-button" class="danger">Clear cart</button>
-      </div>
-    </section>
-  </main>
+                <div class="actions">
+                    <button type="button" id="undo-button">Undo</button>
+                    <button type="button" id="clear-button" class="danger">Clear cart</button>
+                </div>
+            </section>
+        </main>
 
-  <script src="cart.js"></script>
-</body>
+        <script src="cart.js"></script>
+    </body>
 </html>
